@@ -70,6 +70,10 @@ function saveKoala( ){
  
   let newKoala = {
     name: $('#nameIn').val(),
+    age: $('#ageIn').val(),
+    gender: $('#genderIn').val(),
+    ready_to_transfer: $('#readyForTransferIn').val(),
+    notes: $('#notesIn').val(),
   }
 
   
