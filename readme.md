@@ -47,19 +47,27 @@ Upon completion of the project you'll need to provide not only the source (via G
 
 ### TO DO CHECKLIST
 []click listeners
-    [] add koala button
+    [x] add koala button
     [] change ready button (make button)
     [] delete button (make button)
-[]POST route
-    [] grab values from inputs
-    [] create data object
+[x]POST route
+    [x] grab values from inputs
+    [x] create data object
 [x]GET route
     [x] appear in DOM
 [] PUT route
     []edit ready_to_transfer value via id
+[] DELETE route
 ##
 [] form validation
     [] transfer value is "Y" or "N"
+    [] age must be number
+
+[] Ready to transfer output:
+    [] change transfer status ONLY appears when koala is *not ready*
+
+## server logic
+
 
 
 

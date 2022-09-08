@@ -10,21 +10,7 @@ $( document ).ready( function(){
 }); // end doc ready
 
 function setupClickListeners() {
-  $( '#addButton' ).on( 'click', function(){
-    console.log( 'in addButton on click' );
-    // get user input and put in an object
-    // NOT WORKING YET :(
-    // using a test object
-    // let koalaToSend = {
-    //   name: 'testName',
-    //   age: 'testName',
-    //   gender: 'testName',
-    //   readyForTransfer: 'testName',
-    //   notes: 'testName',
-    // };
-    // call saveKoala with the new obejct
-    saveKoala( koalaToSend );
-  }); 
+  $( '#addButton' ).on( 'click', saveKoala );
 }
 
 function getKoalas(){
@@ -46,28 +32,23 @@ function getKoalas(){
 //accepts GET /koalas response as argument
 function renderKoalas(koalaList) {
 //clears koala table
-$('#viewKoalas').empty();
-for (let koala of koalaList) { //update this for proper formatting of rows/etc
-  $('#viewKoalas').append(`
-    <tr data-id=${koala.id}>
-      <td>${koala.name}</td>
-      <td>${koala.age}</td>
-      <td>${koala.gender}</td>
-      <td>${koala.ready_to_transfer}</td>
-      <td>${koala.notes}</td>
-    </tr>
-  `);
-}
-$('input').val('');
-}
-
-function putKoala( newKoala ) {
-
+  $('#viewKoalas').empty();
+  for (let koala of koalaList) { //update this for proper formatting of rows/etc
+    $('#viewKoalas').append(`
+      <tr data-id=${koala.id}>
+        <td>${koala.name}</td>
+        <td>${koala.age}</td>
+        <td>${koala.gender}</td>
+        <td>${koala.ready_to_transfer}</td>
+        <td>${koala.notes}</td>
+      </tr>
+    `);
+  }
+  $('input').val('');
 }
 
 function saveKoala( ){
   // creates new koala data object //outputs 'newKoala'
- 
   let newKoala = {
     name: $('#nameIn').val(),
     age: $('#ageIn').val(),
@@ -75,12 +56,22 @@ function saveKoala( ){
     ready_to_transfer: $('#readyForTransferIn').val(),
     notes: $('#notesIn').val(),
   }
-
-  
- 
- 
-  console.log( 'in saveKoala', newKoala );
   putKoala( newKoala );
 } //end saveKoala
+
+function putKoala ( newKoala ) {
+  $.ajax({
+    method: 'POST',
+    url: '/koalas',
+    data: newKoala
+  })
+    .then((response) => {
+      console.log('POST /koalas successful', response);
+      getKoalas();
+    })
+    .catch((error) => {
+      console.log('error in POST /koalas',error)
+    })
+}
   
   

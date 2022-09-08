@@ -20,7 +20,7 @@ koalaRouter.get('/', (req, res) => {
 // POST
 koalaRouter.post('/', (req, res) => {
     let newKoala = req.body;
-    let transfer = (req.body.ready_to_transfer === true) ? true : false;
+    let transfer = (req.body.ready_to_transfer === 'Y') ? true : false;
 
     console.log(`Adding koala`, newKoala);
 
