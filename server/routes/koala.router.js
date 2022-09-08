@@ -43,6 +43,7 @@ koalaRouter.put('/:id', (req, res) => {
     console.log(`Updating koala, id ${req.params.id}`);
     let updateId = req.params.id;
 
+    // Flip ready_to_transfer value to its opposite (true / false)
     const queryText = `
         UPDATE "koalaHolla"
             SET "ready_to_transfer" = NOT "ready_to_transfer"
