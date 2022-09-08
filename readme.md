@@ -49,7 +49,7 @@ Upon completion of the project you'll need to provide not only the source (via G
 []click listeners
     [x] add koala button
     [] change ready button (make button)
-    [] delete button (make button)
+    [x] delete button (make button)
 [x]POST route
     [x] grab values from inputs
     [x] create data object
@@ -57,7 +57,7 @@ Upon completion of the project you'll need to provide not only the source (via G
     [x] appear in DOM
 [] PUT route
     []edit ready_to_transfer value via id
-[] DELETE route
+[x] DELETE route
 ##
 [] form validation
     [] transfer value is "Y" or "N"

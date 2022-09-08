@@ -11,6 +11,7 @@ $( document ).ready( function(){
 
 function setupClickListeners() {
   $( '#addButton' ).on( 'click', saveKoala );
+  $( '#viewKoalas' ).on( 'click', ".delete", deleteKoala );
 }
 
 function getKoalas(){
@@ -41,6 +42,7 @@ function renderKoalas(koalaList) {
         <td>${koala.gender}</td>
         <td>${koala.ready_to_transfer}</td>
         <td>${koala.notes}</td>
+        <td><button class="delete">DELETE</button></td>
       </tr>
     `);
   }
@@ -73,5 +75,17 @@ function putKoala ( newKoala ) {
       console.log('error in POST /koalas',error)
     })
 }
-  
-  
+
+function deleteKoala() {
+  $.ajax({
+    method: 'DELETE',
+    url: `/koalas/${$(this).parent().parent().data('id')}`
+  })
+    .then((response) => {
+      console.log('DELETE /koalas success',response);
+      getKoalas();
+    })
+    .catch((error) => {
+      console.log('error in DELETE /koalas',error);
+    });
+}
