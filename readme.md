@@ -45,6 +45,25 @@ Upon completion of the project you'll need to provide not only the source (via G
 5. Client side filtering with a text box
 6. Ability to edit other information (Name, Age, Notes) for existing Koalas in the db.
 
+### TO DO CHECKLIST
+[]click listeners
+    [] add koala button
+    [] change ready button (make button)
+    [] delete button (make button)
+[]POST route
+    [] grab values from inputs
+    [] create data object
+[x]GET route
+    [x] appear in DOM
+[] PUT route
+    []edit ready_to_transfer value via id
+##
+[] form validation
+    [] transfer value is "Y" or "N"
+
+
+
+
 
 
 ### Sample Wireframe
