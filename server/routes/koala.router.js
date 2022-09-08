@@ -8,7 +8,7 @@ const pool = require('../modules/pool');
 koalaRouter.get('/', (req, res) => {
     let queryText = 'SELECT * FROM "koalaHolla" ORDER BY "name";'
     pool.query(queryText).then(result => {
-        res.setEncoding(result.rows);
+        res.send(result.rows);
     })
     .catch(error => {
         console.log('error GETing koalas', error);
@@ -20,7 +20,7 @@ koalaRouter.get('/', (req, res) => {
 // POST
 koalaRouter.post('/', (req, res) => {
     let newKoala = req.body;
-    let transfer = (req.body.ready_to_transfer === true) ? true : false;
+    let transfer = (req.body.ready_to_transfer === 'Y') ? true : false;
 
     console.log(`Adding koala`, newKoala);
 
@@ -60,7 +60,7 @@ koalaRouter.put('/:id', (req, res) => {
 
 
 // DELETE
-router.delete('/:id', (req, res) => {
+koalaRouter.delete('/:id', (req, res) => {
     console.log(`Deleting koala, id ${req.params.id}`);
     let deleteId = req.params.id;
   
