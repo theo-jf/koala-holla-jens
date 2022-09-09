@@ -54,7 +54,7 @@ koalaRouter.put('/:id', (req, res) => {
             res.sendStatus(200);
         })
         .catch(error => {
-            console.log('Error updating book', error);
+            console.log('Error updating koala', error);
             res.sendStatus(500);
         });
 });
@@ -78,6 +78,5 @@ koalaRouter.delete('/:id', (req, res) => {
             res.sendStatus(500);
         });
 });
-
 
 module.exports = koalaRouter;
