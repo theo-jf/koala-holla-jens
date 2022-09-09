@@ -1,3 +1,27 @@
+html {
+  background-color: cadetblue;
+}
+
+td {
+  width: 145px;
+  height: 50px;
+  text-align: center;
+}
+
+thead {
+  background-color:burlywood;
+  
+}
+
+table, th, td {
+  border: 1px solid;
+  border-collapse: collapse;
+}
+
+table {
+  background-color:cornflowerblue;
+}
+
 
 .dropdown {
     position: relative;
