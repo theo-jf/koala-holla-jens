@@ -17,10 +17,22 @@
     </header>
     <section id="addKoala">
       <h2>Add Koala</h2>
-      <input type="text" id="nameIn" value="" placeholder="Name">
-      <input type="text" id="ageIn" value="" placeholder="Age">
-      <input type="text" id="genderIn" value="" placeholder="Gender">
-      <input type="text" id="readyForTransferIn" value="" placeholder="Transfer">
+      <input type="text" id="nameIn" placeholder="Name">
+      <input type="number" min="0" id="ageIn" placeholder="Age">
+      <div class="dropdown">
+        <input class="dropbtn" id="genderIn" disabled placeholder="Gender (fascist version, sorry!)">
+          <div id="transferDropdown" class="dropdown-content">
+            <p class="dropOption" data-val="M">M</p>
+            <p class="dropOption" data-val="F">F</p>
+          </div>
+      </div>
+      <div class="dropdown">
+        <input class="dropbtn" id="readyForTransferIn" disabled placeholder="Ready to Transfer?">
+          <div id="transferDropdown" class="dropdown-content">
+            <p class="dropOption" data-val="Y">Y</p>
+            <p class="dropOption" data-val="N">N</p>
+          </div>
+      </div>
       <input type="text" id="notesIn" value="" placeholder="Notes">
       <button type="button" id="addButton">Add Koala</button>
     </section>
