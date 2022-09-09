@@ -12,7 +12,8 @@ $( document ).ready( function(){
 function setupClickListeners() {
   $( '#addButton' ).on( 'click', saveKoala );
   $( '#viewKoalas' ).on( 'click', ".delete", deleteKoala );
-  $( '#viewKoalas' ).on( 'click', ".readyStatus", updateStatus ); 
+  $( '#viewKoalas' ).on( 'click', ".readyStatus", updateStatus );
+  $(' #viewKoalas' ).on( 'click', ".edit", editKoala );
 }
 
 function getKoalas(){
@@ -39,12 +40,13 @@ function renderKoalas(koalaList) {
     let readyStatus = (koala.ready_to_transfer === true) ? 'Y' : 'N';
     $('#viewKoalas').append(`
       <tr data-id=${koala.id}>
-        <td>${koala.name}</td>
-        <td>${koala.age}</td>
-        <td>${koala.gender}</td>
-        <td><button class="readyStatus">${readyStatus}</button></td>
-        <td>${koala.notes}</td>
+        <td class="name">${koala.name}</td>
+        <td class="age">${koala.age}</td>
+        <td class="gender">${koala.gender}</td>
+        <td class="ready"><button class="readyStatus">${readyStatus}</button></td>
+        <td class="notes">${koala.notes}</td>
         <td><button class="delete">DELETE</button></td>
+        <td class="editTd"><button class="edit">EDIT</button></td>
       </tr>
     `);
   }
@@ -103,5 +105,84 @@ function updateStatus() {
     })
     .catch((error) => {
       console.log('error in PUT /koalas',error);
+    });
+}
+
+function editKoala() {
+  let updateId = $(this).parent().parent().data('id');
+
+  let savedKoalaInfo = {
+    name: $(this).parent().closest('tr').find('.name').text(),
+    age: $(this).parent().closest('tr').find('.age').text(),
+    gender: $(this).parent().closest('tr').find('.gender').text(),
+    ready_to_transfer: $(this).parent().closest('tr').find('.ready').children().text(),
+    notes: $(this).parent().closest('tr').find('.notes').text()
+  }
+
+  // If this is confirming previous edits, end function
+  if ($(this).text() === 'Confirm') {
+    savedKoalaInfo = {
+    name: $(this).parent().closest('tr').find('#nameInEdit').val(),
+    age: $(this).parent().closest('tr').find('#ageInEdit').val(),
+    gender: $(this).parent().closest('tr').find('#genderInEdit').val(),
+    ready_to_transfer: $(this).parent().closest('tr').find('.ready').children().val(),
+    notes: $(this).parent().closest('tr').find('#notesInEdit').val()
+    }
+    submitKoalaEdit(savedKoalaInfo, updateId);
+    return;
+  }
+
+  // changes td to text inputs ---> previous text supplanted
+
+  console.log(savedKoalaInfo);
+
+  $(this).parent().closest('tr').find('.name').empty();
+  $(this).parent().closest('tr').find('.name').append(`
+    <input type="text" id="nameInEdit" value="${savedKoalaInfo.name}" placeholder="Name">
+  `);
+
+  $(this).parent().closest('tr').find('.age').empty();
+  $(this).parent().closest('tr').find('.age').append(`
+    <input type="text" id="ageInEdit" value="${savedKoalaInfo.age}" placeholder="Age">
+  `);
+
+  $(this).parent().closest('tr').find('.gender').empty();
+  $(this).parent().closest('tr').find('.gender').append(`
+    <input type="text" id="genderInEdit" value="${savedKoalaInfo.gender}" placeholder="Gender">
+  `);
+
+  $(this).parent().closest('tr').find('.ready').empty();
+  $(this).parent().closest('tr').find('.ready').append(`
+    <input type="text" id="readyForTransferInEdit" value="${savedKoalaInfo.ready_to_transfer}" placeholder="Transfer">
+  `);
+
+  $(this).parent().closest('tr').find('.notes').empty();
+  $(this).parent().closest('tr').find('.notes').append(`
+    <input type="text" id="notesInEdit" value="${savedKoalaInfo.notes}" placeholder="Notes">
+  `);
+
+  $(this).parent().closest('tr').find('.delete').remove();
+
+  $(this).parent().closest('tr').find('.edit').text('Confirm');
+
+
+
+
+  // New button ---> confirm edit which calls the submitKoalaEdit function
+}
+
+function submitKoalaEdit(savedKoalaInfo, updateId) {
+
+  $.ajax({
+    method: 'PUT',
+    url: `/update/${updateId}`,
+    data: savedKoalaInfo
+  })
+    .then((response) => {
+      console.log('PUT /update success', response);
+      getKoalas();
+    })
+    .catch((error) => {
+      console.log('error in PUT /update', error);
     });
 }
