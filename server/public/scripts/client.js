@@ -73,6 +73,11 @@ function putKoala ( newKoala ) {
   })
     .then((response) => {
       console.log('POST /koalas successful', response);
+      Swal.fire({
+        icon: 'success',
+        title: 'Koala Added',
+        text: 'Success',
+      })
       getKoalas();
     })
     .catch((error) => {
@@ -87,6 +92,11 @@ function deleteKoala() {
   })
     .then((response) => {
       console.log('DELETE /koalas success',response);
+      Swal.fire({
+        icon: 'success',
+        title: 'Koala Gone',
+        text: 'Success',
+      })
       getKoalas();
     })
     .catch((error) => {
@@ -164,8 +174,6 @@ function editKoala() {
   $(this).parent().closest('tr').find('.delete').remove();
 
   $(this).parent().closest('tr').find('.edit').text('Confirm');
-
-
 
 
   // New button ---> confirm edit which calls the submitKoalaEdit function
