@@ -12,6 +12,7 @@ $( document ).ready( function(){
 function setupClickListeners() {
   $( '#addButton' ).on( 'click', saveKoala );
   $( '#viewKoalas' ).on( 'click', ".delete", deleteKoala );
+  $( '#viewKoalas' ).on( 'click', ".readyStatus", updateStatus ); 
 }
 
 function getKoalas(){
@@ -35,12 +36,13 @@ function renderKoalas(koalaList) {
 //clears koala table
   $('#viewKoalas').empty();
   for (let koala of koalaList) { //update this for proper formatting of rows/etc
+    let readyStatus = (koala.ready_to_transfer === true) ? 'Y' : 'N';
     $('#viewKoalas').append(`
       <tr data-id=${koala.id}>
         <td>${koala.name}</td>
         <td>${koala.age}</td>
         <td>${koala.gender}</td>
-        <td>${koala.ready_to_transfer}</td>
+        <td><button class="readyStatus">${readyStatus}</button></td>
         <td>${koala.notes}</td>
         <td><button class="delete">DELETE</button></td>
       </tr>
@@ -87,5 +89,19 @@ function deleteKoala() {
     })
     .catch((error) => {
       console.log('error in DELETE /koalas',error);
+    });
+}
+
+function updateStatus() {
+  $.ajax({
+    method: 'PUT',
+    url: `/koalas/${$(this).parent().parent().data('id')}`
+  })
+    .then((response) => {
+      console.log('PUT /koalas success',response);
+      getKoalas();
+    })
+    .catch((error) => {
+      console.log('error in PUT /koalas',error);
     });
 }
