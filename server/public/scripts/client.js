@@ -14,7 +14,8 @@ function setupClickListeners() {
   $( '.dropOption' ).on( 'click', inputDropValue);
   $( '#viewKoalas' ).on( 'click', ".delete", deleteKoala );
   $( '#viewKoalas' ).on( 'click', ".readyStatus", updateStatus );
-  $(' #viewKoalas' ).on( 'click', ".edit", editKoala );
+  $( '#viewKoalas' ).on( 'click', ".edit", editKoala );
+  $( '#viewKoalas' ).on( 'click', '.dropOption', inputDropValue);
 }
 
 function inputDropValue() {
@@ -162,8 +163,8 @@ function editKoala() {
     savedKoalaInfo = {
     name: $(this).parent().closest('tr').find('#nameInEdit').val(),
     age: $(this).parent().closest('tr').find('#ageInEdit').val(),
-    gender: $(this).parent().closest('tr').find('#genderInEdit').val(),
-    ready_to_transfer: $(this).parent().closest('tr').find('.ready').children().val(),
+    gender: $(this).parent().closest('tr').find('.gender').children().children().val(),
+    ready_to_transfer: $(this).parent().closest('tr').find('.ready').children().children().val(),
     notes: $(this).parent().closest('tr').find('#notesInEdit').val()
     }
     submitKoalaEdit(savedKoalaInfo, updateId);
@@ -186,12 +187,24 @@ function editKoala() {
 
   $(this).parent().closest('tr').find('.gender').empty();
   $(this).parent().closest('tr').find('.gender').append(`
-    <input type="text" id="genderInEdit" value="${savedKoalaInfo.gender}" placeholder="Gender">
+    <div class="dropdown">
+      <input class="dropbtn" id="genderInEdit" disabled value="${savedKoalaInfo.gender}" placeholder="Gender">
+        <div id="transferDropdown" class="dropdown-content">
+          <p class="dropOption" data-val="M">M</p>
+          <p class="dropOption" data-val="F">F</p>
+        </div>
+    </div>
   `);
 
   $(this).parent().closest('tr').find('.ready').empty();
   $(this).parent().closest('tr').find('.ready').append(`
-    <input type="text" id="readyForTransferInEdit" value="${savedKoalaInfo.ready_to_transfer}" placeholder="Transfer">
+    <div class="dropdown">
+      <input class="dropbtn" id="readyForTransferInEdit" disabled value="${savedKoalaInfo.ready_to_transfer}" placeholder="Ready to Transfer?">
+        <div id="transferDropdown" class="dropdown-content">
+          <p class="dropOption" data-val="Y">Y</p>
+          <p class="dropOption" data-val="N">N</p>
+        </div>
+    </div>
   `);
 
   $(this).parent().closest('tr').find('.notes').empty();
