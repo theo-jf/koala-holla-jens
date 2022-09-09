@@ -56,15 +56,18 @@ function renderKoalas(koalaList) {
 }
 
 function saveKoala( ){
-  // creates new koala data object //outputs 'newKoala'
-  let newKoala = {
-    name: $('#nameIn').val(),
-    age: $('#ageIn').val(),
-    gender: $('#genderIn').val(),
-    ready_to_transfer: $('#readyForTransferIn').val(),
-    notes: $('#notesIn').val(),
+  if (!checkKoalaInput()) {
+    return false;
+  } else {
+    let newKoala = {
+      name: $('#nameIn').val(),
+      age: $('#ageIn').val(),
+      gender: $('#genderIn').val(),
+      ready_to_transfer: $('#readyForTransferIn').val(),
+      notes: $('#notesIn').val(),
+    }
+    putKoala( newKoala );
   }
-  putKoala( newKoala );
 } //end saveKoala
 
 function putKoala ( newKoala ) {
@@ -96,13 +99,20 @@ function deleteKoala() {
     });
 }
 
-//form validation function
-//is refered to by save "koala"
-
-
 function checkKoalaInput() {
-  //Name must be string
-  //age must be integer
-  //gender dropdown menu?
-  //ready to transfer must be one of two types
+  if ( $( '#nameIn' ).val() === '' || $( '#ageIn' ).val() === '') {
+    alert('Please complete form with name and age');
+    return false
+  } else if ( Number($( '#ageIn' ).val()) === NaN || Number($( '#ageIn' ).val()) < 0 ) {
+    alert('Please enter a correct age');
+    return false;
+  } else if (  $( '#genderIn' ).val() === '' ) {
+    alert('Please submit gender in fascist binary format');
+    return false;
+  } else if ( $( '#readyForTransferIn' ).val() === '' ) {
+    alert('Transfer Status?');
+    return false;
+  } else {
+    return true;
+  }
 }
