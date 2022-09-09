@@ -11,7 +11,13 @@ $( document ).ready( function(){
 
 function setupClickListeners() {
   $( '#addButton' ).on( 'click', saveKoala );
-  $( '#viewKoalas' ).on( 'click', ".delete", deleteKoala );
+  $( '#viewKoalas' ).on( 'click', '.delete', deleteKoala );
+  $( '.dropOption' ).on( 'click', inputDropValue);
+}
+
+function inputDropValue() {
+  console.log( $(this).parent().siblings('.dropbtn') );
+  $(this).parent().siblings('.dropbtn').val( $(this).data('val') );
 }
 
 function getKoalas(){
@@ -88,4 +94,15 @@ function deleteKoala() {
     .catch((error) => {
       console.log('error in DELETE /koalas',error);
     });
+}
+
+//form validation function
+//is refered to by save "koala"
+
+
+function checkKoalaInput() {
+  //Name must be string
+  //age must be integer
+  //gender dropdown menu?
+  //ready to transfer must be one of two types
 }
